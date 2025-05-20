@@ -37,9 +37,19 @@ This application allow user to upload a log file and analyse the data which woul
   - [x] Validate the visited URL is returning success 200 before incrementing (Assuming that we're only counting the successfully visited page)
 
 [x] As a user, I would like to know the information of the top 3 most active IP addresses
-  - [x] Read each line and retrieve the information of the IP addresses
-  - [x] Count and listed 3 the IP addresses that has the most count
+  - [x] A button within the IP analytic table to filter to top 3
+  - [x] Ability to reset back to the original state
 
 ### Additional useful features:
 - As a user, I should be able to see the date range contains in the log file so that I understand more about the information
 - As a user, I should be able to see the unsuccessfully visited URLs so that I could inform my dev team to monitor or check further logs of that particular pages
+- As a user, I should be able to visualise data with pie chart?
+- As a user, I should be able to visualise the traffic data in graph so that I can understand which date has the highest traffic and from which path?
+- Limit file size?
+- Limit table row?
+- How to categorise the status code?
+
+### Other consideration
+- Deployment
+- CI/CD pipeline
+- Infrastructure

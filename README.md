@@ -19,8 +19,10 @@ This application allow user to upload a log file and analyse the data which woul
 
 ### Main features:
 
-[] As a user, I am able to upload a single web server log so that it could analyse the data in the log file
-  - [] Able to upload both .log and .txt format
+[x] As a user, I am able to upload a single web server log so that it could analyse the data in the log file
+  - [x] Able to upload both .log and .txt format
+  - [x] Validate and process log entries for a given file
+  - [x] Show errror message when there's no valid log entry 
 
 [] As a user, I would like to know the information of unique IP addresses listed in the log file so that I know how many IP addresses are unique
   - [] Read each line and validate if the information are in the correct structure of a log file

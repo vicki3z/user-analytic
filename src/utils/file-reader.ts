@@ -55,5 +55,12 @@ export const readLogFile = async (file: File) => {
     }
   });
 
+  console.debug('Log entries:', logEntries);
+  console.debug('Errors:', errors);
+
+  if (logEntries.length === 0 && errors.length > 0) {
+    throw new Error('No valid log entries found');
+  }
+
   return { logEntries, errors } ;
 }; 

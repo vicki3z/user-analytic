@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import FileUpload from '../components/FileUpload';
 import { useState } from "react";
-import { LogEntry, readLogFile } from "@/utils/file-reader";
+import { LogEntry } from "@/utils/file-reader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

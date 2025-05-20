@@ -49,5 +49,8 @@ describe('Log Entry Processor', () => {
       // - Check that the last visit date is correct
       // - Check that the last visit ip is correct
     })
+    it.todo('should process most visited paths with normalised path without domain name')
+    it.todo('should NOT process most visited paths with status code other than 200')
+    it.todo('should NOT process most visited paths with auth user other than "-"')
   })
 })

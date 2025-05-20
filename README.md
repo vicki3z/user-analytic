@@ -24,11 +24,12 @@ This application allow user to upload a log file and analyse the data which woul
   - [x] Validate and process log entries for a given file
   - [x] Show errror message when there's no valid log entry 
 
-[] As a user, I would like to know the information of unique IP addresses listed in the log file so that I know how many IP addresses are unique
-  - [] Read each line and validate if the information are in the correct structure of a log file
-  - [] Throw an error if any of the line are not in the correct structure along with the line number 
-  - [] Count and listed the IP addresses that are unique
-  - [] Validate the IP address is not an admin before incrementing
+[x] As a user, I would like to know the information of unique IP addresses listed in the log file so that I know how many IP addresses are unique
+  - [x] Read each line and validate if the information are in the correct structure of a log file - completed by the above user story
+  - [x] Throw an error if any of the line are not in the correct structure along with the line number - completed by the above user story
+  - [x] Count and listed the IP addresses that are unique
+  - [x] Validate the IP address is not an admin before incrementing
+  - [ ] List unique IP addresses along with it's total request, the number unique paths visited, and the last seen
 
 [] As a user, I would like to know the information of the top 3 most active IP addresses
   - [] Read each line and retrieve the information of the IP addresses

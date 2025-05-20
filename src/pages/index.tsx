@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import FileUpload from '../components/FileUpload';
+import IpAnalyticsTable from '../components/IpAnalyticsTable';
 import { useState } from "react";
 import { LogEntry } from "@/utils/file-reader";
 
@@ -20,15 +21,11 @@ export default function Home() {
   const [logEntries, setLogEntries] = useState<LogEntry[]>([]);
   const [errors, setErrors] = useState<string[]>([]);
 
-
   const handleFileSelect = async (file: File, logEntries: LogEntry[], errors: string[]) => {
     console.log('Selected file:', file);
     setSelectedFile(file);
     setLogEntries(logEntries);
     setErrors(errors);
-
-    console.debug('Log entries:', logEntries);
-    console.debug('Errors:', errors);
   };
 
   return (
@@ -39,11 +36,35 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div
-        className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}
-      >
+      <div className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}>
         <main className={styles.main}>
-          <FileUpload onFileSelect={handleFileSelect} />
+          <div className="w-full max-w-7xl mx-auto px-4 py-8">
+            <h1 className="text-3xl font-bold mb-8">Web Analytics Dashboard</h1>
+            
+            <div className="mb-8">
+              <FileUpload onFileSelect={handleFileSelect} />
+            </div>
+
+            {errors.length > 0 && (
+              <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <h2 className="text-lg font-semibold text-red-700 mb-2">Validation Errors</h2>
+                <ul className="list-disc list-inside text-red-600">
+                  {errors.map((error, index) => (
+                    <li key={index}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {logEntries.length > 0 && (
+              <div className="bg-white rounded-lg shadow">
+                <div className="p-6">
+                  <h2 className="text-xl font-semibold mb-4">IP Address Analytics</h2>
+                  <IpAnalyticsTable logEntries={logEntries} />
+                </div>
+              </div>
+            )}
+          </div>
         </main>
       </div>
     </>

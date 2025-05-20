@@ -29,17 +29,16 @@ This application allow user to upload a log file and analyse the data which woul
   - [x] Throw an error if any of the line are not in the correct structure along with the line number - completed by the above user story
   - [x] Count and listed the IP addresses that are unique
   - [x] Validate the IP address is not an admin before incrementing
-  - [ ] List unique IP addresses along with it's total request, the number unique paths visited, and the last seen
+  - [x] List unique IP addresses along with it's total request, the unique paths visited, and the last seen
+
+[] As a user, I would like to know the information of the top 3 most visited URLs
+  - [x] Read each line and retrieve the information of the URLs
+  - [x] Strip out the domain name if exists
+  - [] Validate the visited URL is returning success 200 before incrementing (Assuming that we're only counting the successfully visited page)
 
 [] As a user, I would like to know the information of the top 3 most active IP addresses
   - [] Read each line and retrieve the information of the IP addresses
   - [] Count and listed 3 the IP addresses that has the most count
-  - [] The functionality from the above story should be reused to validate the IP address
-
-[] As a user, I would like to know the information of the top 3 most visited URLs
-  - [] Read each line and retrieve the information of the URLs
-  - [] Strip out the domain name if exists
-  - [] Validate the visited URL is returning success 200 before incrementing (Assuming that we're only counting the successfully visited page)
 
 ### Additional useful features:
 - As a user, I should be able to see the date range contains in the log file so that I understand more about the information

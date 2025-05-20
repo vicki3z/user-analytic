@@ -5,6 +5,7 @@ import FileUpload from '../components/FileUpload';
 import IpAnalyticsTable from '../components/IpAnalyticsTable';
 import { useState } from "react";
 import { LogEntry } from "@/utils/file-reader";
+import AnalyticsTabs from "@/components/AnalyticsTabs";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,8 +60,7 @@ export default function Home() {
             {logEntries.length > 0 && (
               <div className="bg-white rounded-lg shadow">
                 <div className="p-6">
-                  <h2 className="text-xl font-semibold mb-4">IP Address Analytics</h2>
-                  <IpAnalyticsTable logEntries={logEntries} />
+                  <AnalyticsTabs logEntries={logEntries} />
                 </div>
               </div>
             )}

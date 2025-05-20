@@ -7,6 +7,13 @@ interface VisitorInfo {
   lastVisitDate: string;
 }
 
+interface MostVisitedPath {
+  path: string;
+  requestCount: number;
+  lastVisitDate: string;
+  lastVisitIp: string;
+}
+
 const formatTimestamp = (timestamp: string): string => {
   // Parse the timestamp from format "11/Jul/2018:17:31:05 +0200"
   const [dateTimePart, timezone] = timestamp.split(' ');
@@ -53,8 +60,10 @@ export const processUniqueVisitors = (logEntries: LogEntry[]): VisitorInfo[] => 
       visitor.requestCount++;
       
       // Add path if not already in the list
-      if (!visitor.visitedPaths.includes(entry.path)) {
-        visitor.visitedPaths.push(entry.path);
+      // Normalise path to remove domain name
+      const normalisedPath = entry.path.replace(/(https?:\/\/)?(www\.)?example\.net/, '');
+      if (!visitor.visitedPaths.includes(normalisedPath)) {
+        visitor.visitedPaths.push(normalisedPath);
       }
 
       // Update last visit date if this entry is more recent
@@ -65,4 +74,34 @@ export const processUniqueVisitors = (logEntries: LogEntry[]): VisitorInfo[] => 
     });
 
   return Array.from(visitorMap.values());
+}
+
+export const processMostVisitedPaths = (logEntries: LogEntry[], limit: number = 3): MostVisitedPath[] => {
+  const pathMap = new Map<string, MostVisitedPath>();
+
+  logEntries
+    .filter(entry => entry.authUser === '-' && entry.statusCode === 200)
+    .forEach(entry => {
+      // Normalise path to remove domain name
+      const normalisedPath = entry.path.replace(/(https?:\/\/)?(www\.)?example\.net/, '');
+
+      if (!pathMap.has(normalisedPath)) {
+        pathMap.set(normalisedPath, {
+          path: normalisedPath,
+          requestCount: 0,
+          lastVisitDate: formatTimestamp(entry.timestamp),
+          lastVisitIp: entry.ip
+        });
+      }
+
+      const path = pathMap.get(normalisedPath)!;
+      path.requestCount++;  
+
+      if (path.lastVisitDate < formatTimestamp(entry.timestamp)) {
+        path.lastVisitDate = formatTimestamp(entry.timestamp);
+        path.lastVisitIp = entry.ip;
+      }
+    })
+
+  return Array.from(pathMap.values()).sort((a, b) => b.requestCount - a.requestCount).slice(0, limit);
 }

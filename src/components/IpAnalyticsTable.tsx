@@ -59,12 +59,16 @@ const IpAnalyticsTable: React.FC<IpAnalyticsTableProps> = ({ logEntries }) => {
   );
 
   return (
-    <Table
-      data={ipAnalyticsData}
-      columns={columns}
-      pageSize={20}
-      filterableColumns={['ip']}
-    />
+    <div className="w-full">
+      <h2 className="text-xl font-semibold mb-4">IP Analytics</h2>
+      <Table
+        data={ipAnalyticsData}
+        columns={columns}
+        pageSize={20}
+        filterableColumns={['ip']}
+      />
+    </div>
+    
   );
 };
 

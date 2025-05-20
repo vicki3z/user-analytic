@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
+import { LogEntry, readLogFile } from '../utils/file-reader';
 
 interface FileUploadProps {
-  onFileSelect: (file: File) => void;
+  onFileSelect: (file: File, logEntries: LogEntry[], errors: string[]) => void;
   acceptedFileTypes?: string;
 }
 
@@ -11,6 +12,21 @@ const FileUpload: React.FC<FileUploadProps> = ({
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isValidating, setIsValidating] = useState(false);
+
+  const validateAndProcessFile = async (file: File) => {
+    try {
+      setIsValidating(true);
+      setSelectedFile(file);
+      const { logEntries, errors } = await readLogFile(file);
+      onFileSelect(file, logEntries, errors);
+      
+    } catch (error) {
+      console.error('Unable to process file:', error);
+    } finally {
+      setIsValidating(false);
+    }
+  };
 
   const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -28,16 +44,14 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
     const file = e.dataTransfer.files[0];
     if (file) {
-      setSelectedFile(file);
-      onFileSelect(file);
+      validateAndProcessFile(file);
     }
   }, [onFileSelect]);
 
   const handleFileInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setSelectedFile(file);
-      onFileSelect(file);
+      validateAndProcessFile(file);
     }
   }, [onFileSelect]);
 
@@ -53,6 +67,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
           ? 'border-blue-500 bg-blue-50' 
           : 'border-gray-300 hover:border-gray-600 hover:bg-gray-100'
         }
+        ${isValidating ? 'opacity-50 cursor-wait' : ''}
       `}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
@@ -71,16 +86,22 @@ const FileUpload: React.FC<FileUploadProps> = ({
           <line x1="12" y1="3" x2="12" y2="15" />
         </svg>
         <h3 className="text-xl text-gray-800 mb-2">
-          {selectedFile ? selectedFile.name : 'Drag and drop your log file here'}
+          {isValidating 
+            ? 'Validating file...' 
+            : selectedFile 
+              ? selectedFile.name 
+              : 'Drag and drop your log file here'
+          }
         </h3>
         <p className="text-sm text-gray-600">
-          or click to browse files
+          {isValidating ? 'Please wait...' : 'or click to browse files'}
         </p>
         <input
           type="file"
           accept={acceptedFileTypes}
           onChange={handleFileInput}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          disabled={isValidating}
         />
       </div>
     </div>

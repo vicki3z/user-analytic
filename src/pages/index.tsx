@@ -1,8 +1,9 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import FileUpload from '../components/FileUpload';
+import { useState } from "react";
+import { LogEntry, readLogFile } from "@/utils/file-reader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +16,19 @@ const geistMono = Geist_Mono({
 });
 
 export default function Home() {
-  const handleFileSelect = (file: File) => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [logEntries, setLogEntries] = useState<LogEntry[]>([]);
+  const [errors, setErrors] = useState<string[]>([]);
+
+
+  const handleFileSelect = async (file: File, logEntries: LogEntry[], errors: string[]) => {
     console.log('Selected file:', file);
+    setSelectedFile(file);
+    setLogEntries(logEntries);
+    setErrors(errors);
+
+    console.debug('Log entries:', logEntries);
+    console.debug('Errors:', errors);
   };
 
   return (

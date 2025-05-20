@@ -1,40 +1,36 @@
+# Web Analytic
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
 
-## Getting Started
+## What does this do?
+This application allow user to upload a log file and analyse the data which would produce these results:
+- The number of unique IP addresses
+- The top 3 most visited URLs
+- The top 3 most active IP addresses
 
-First, run the development server:
+## Features:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Main features:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[] As a user, I am able to upload a single web server log so that it could analyse the data in the log file
+  - [] Able to upload both .log and .txt format
+  - [] Throw error when it's an incorrect format
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+[] As a user, I would like to know the information of unique IP addresses listed in the log file so that I know how many IP addresses are unique
+  - [] Read each line and validate if the information are in the correct structure of a log file
+  - [] Throw an error if any of the line are not in the correct structure along with the line number 
+  - [] Count and listed the IP addresses that are unique
+  - [] Validate the IP address is not an admin before incrementing
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+[] As a user, I would like to know the information of the top 3 most active IP addresses
+  - [] Read each line and retrieve the information of the IP addresses
+  - [] Count and listed 3 the IP addresses that has the most count
+  - [] The functionality from the above story should be reused to validate the IP address
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+[] As a user, I would like to know the information of the top 3 most visited URLs
+  - [] Read each line and retrieve the information of the URLs
+  - [] Strip out the domain name if exists
+  - [] Validate the visited URL is returning success 200 before incrementing (Assuming that we're only counting the successfully visited page)
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+### Additional useful features:
+- As a user, I should be able to see the date range contains in the log file so that I understand more about the information
+- As a user, I should be able to see the unsuccessfully visited URLs so that I could inform my dev team to monitor or check further logs of that particular pages

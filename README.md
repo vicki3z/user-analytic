@@ -7,6 +7,14 @@ This application allow user to upload a log file and analyse the data which woul
 - The top 3 most visited URLs
 - The top 3 most active IP addresses
 
+## Assumptions:
+- The purpose of the task is to analyse the website traffic based on the log file
+- User is allowed to upload only a single file
+- System only allowed the these 2 formats of log file; *.log and *.txt
+- System will treat the visited URLs contain in log file as the same route regardless of whether url contain domain name
+- IP addresses that are from the admin role should be filtered out as they're internal users and not consumer users
+
+
 ## Features:
 
 ### Main features:

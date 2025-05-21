@@ -53,3 +53,12 @@ This application allow user to upload a log file and analyse the data which woul
 - Deployment
 - CI/CD pipeline
 - Infrastructure
+
+========================
+
+## Enhancement / After Thoughts?
+User uploading the log file might not make sense in terms of overall user experience.
+In a real world, the log file would be collected periodically by other systems (host, web server, cloud services, etc.). These log files should be stored somewhere (Eg. AWS S3 or something similar). 
+
+Instead of user uploading, the application should have accessed to those files and able to download them via API. The parsing might make more sense to be done on the backend? Depends on whether we would need to save the processed data anywhere else like DB or whether how big are the log entries we are processing.
+
